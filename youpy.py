@@ -34,38 +34,36 @@ def sizePrinter(title):
 		time.sleep(.1)
 	
 	if os.path.exists(directory + "\\" + title + '.webm'):
-		totalSize = (os.path.getsize(directory + "\\" + title + '.webm')) * 2.46
-		# print(str(totalSize))
-	
+		totalSize = int(((os.path.getsize(directory + "\\" + title + '.webm')) * 2.46))
+			
 	while not os.path.exists(directory + "\\" + title + '.mp3'):
-		# print('asd')
 		time.sleep(.1)
+
+	time.sleep(.6)
+	print('[convert] Converting: ' + directory + "\\" + title + '.webm'+ ' to .mp3')
 
 	while downloading:
 		size = -1
 
-		# print(directory + "\\" + title + '.mp3')
+		
 		if os.path.exists(directory + "\\" + title + '.mp3'):
 			size = (os.path.getsize(directory + "\\" + title + '.mp3'))
 			
 			
 
 			if size != totalSize:
-				# print('Current size of file: ' + str(size))
-				per = round((size/totalSize * 100),1)
-				# print ('[convert] converted: ' + str(per)+"%", end="\r")
 				
-				if True:
-					print ('[convert] converted: ' + str(per)+"%" + ' | ' + str(size) + ' of ' + str(totalSize), end="\r")
-					
-				else:
-					print('[convert] converted: 100%')
-					break
+				per = round((size/totalSize * 100),1)
+				
+				print ('[convert] Converted: ' + str(per)+"%" + ' | ' + str(size) + ' of ' + str(totalSize), end="\r")
 		time.sleep(.1)
-	time.sleep(1)
-	sys.stdout.write('\r'+'[convert] converted: 100%\n')
 	
-
+	# Back to previous line
+	sys.stdout.write("\033[F")
+	# Clear line
+	sys.stdout.write("\033[K")
+	
+	print('[convert] converted: 100%')
 	print('Done!')
 
 def download():
@@ -101,4 +99,4 @@ def main():
 
 
 if __name__ == "__main__":
-	main();
+	main()
