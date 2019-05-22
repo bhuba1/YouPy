@@ -27,10 +27,9 @@ def createFolder(directory):
 		os.makedirs(directory)
 def sizePrinter(title):
 	global downloading
-
 	
+	title = title.replace('|','_')
 	while not os.path.exists(directory + "\\" + title + '.webm'):
-		# print('asd')
 		time.sleep(.1)
 	
 	if os.path.exists(directory + "\\" + title + '.webm'):
@@ -38,7 +37,7 @@ def sizePrinter(title):
 			
 	while not os.path.exists(directory + "\\" + title + '.mp3'):
 		time.sleep(.1)
-
+	
 	time.sleep(.6)
 	print('[convert] Converting: ' + directory + "\\" + title + '.webm'+ ' to .mp3')
 
@@ -75,7 +74,7 @@ def download():
 
 	downloading = True
 	x = threading.Thread(target=sizePrinter,args=(title,))
-
+	
 	with youtube_dl.YoutubeDL(ydl_opts) as ydl:
 		x.start()
 		ydl.download([link])
