@@ -29,6 +29,9 @@ def sizePrinter(title):
 	global downloading
 	
 	title = title.replace('|','_')
+	title = title.replace('/','_')
+	title = title.replace('\\','_')
+	
 	while not os.path.exists(directory + "\\" + title + '.webm'):
 		time.sleep(.1)
 	
@@ -71,7 +74,7 @@ def download():
 	info = ytdl.extract_info(link, download=False)
 	title = info['title']
 	formats = info['formats']
-
+	
 	downloading = True
 	x = threading.Thread(target=sizePrinter,args=(title,))
 	
