@@ -5,9 +5,10 @@ import sys
 from urllib.request import urlopen
 import threading
 import time
-from tqdm import tqdm
+
 
 downloading = False
+first = True
 
 link =''
 directory = "mp3"
@@ -22,12 +23,23 @@ ydl_opts = {
 	}],
 }
 
+
 def createFolder(directory):
 	if not os.path.exists(directory):
 		os.makedirs(directory)
+
+
 def sizePrinter(title):
-	global downloading
-	
+	global downloading, first
+
+	s = 0
+	# Already in mp3 format
+	if first and os.path.exists(directory + "\\" + title + '.mp3'):
+		s = int(((os.path.getsize(directory + "\\" + title + '.mp3'))))
+		if s > 10:
+			return
+			
+	first = False
 	title = title.replace('|','_')
 	title = title.replace('/','_')
 	title = title.replace('\\','_')
@@ -61,12 +73,13 @@ def sizePrinter(title):
 		time.sleep(.1)
 	
 	# Back to previous line
-	sys.stdout.write("\033[F")
+	#sys.stdout.write("\033[F")
 	# Clear line
-	sys.stdout.write("\033[K")
+	#sys.stdout.write("\033[K")
 	
 	print('[convert] converted: 100%')
 	print('Done!')
+
 
 def download():
 	global downloading
@@ -89,6 +102,7 @@ def download():
 def getInput():
 	global link
 	link = input("Give me a youtube link pls: ")
+
 
 def main():
 	print("Youtube Video getter v0.1")
