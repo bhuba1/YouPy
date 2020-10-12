@@ -105,13 +105,19 @@ def getInput():
 
 
 def main():
-	print("Youtube Video getter v0.1")
+	print("Youtube MP3 music getter v0.2 by Bhuba")
 	getInput()
 
 	print('Loading...')
 
 	createFolder(directory)
 	download()
+	script_dir = os.path.dirname(os.path.realpath(__file__))
+	print(script_dir)
+	rel_path = "mp3"
+	abs_path = os.path.join(script_dir, rel_path)
+	
+	os.startfile(abs_path)
 
 
 if __name__ == "__main__":
